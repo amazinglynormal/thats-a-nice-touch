@@ -1,8 +1,6 @@
 const sections = document.querySelectorAll("section");
 const tableOfContents = document.querySelector(".table-of-contents");
 
-console.log(sections);
-
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
