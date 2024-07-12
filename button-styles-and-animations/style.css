@@ -2,7 +2,6 @@
 :root {
   --dark-bg: rgba(16, 16, 34, 1);
   --light-gray: rgb(131, 131, 131);
-  --white: rgba(241, 241, 241, 1);
   --gold: #ffd700;
 }
 
@@ -26,6 +25,10 @@ header a {
   font-size: 2rem;
 }
 
+h2 {
+  text-align: center;
+}
+
 button {
   border: 3px solid black;
   background-color: transparent;
@@ -45,6 +48,7 @@ button {
 
 .button-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-width: 300px;
@@ -53,18 +57,19 @@ button {
 
 /************************************************************************************************** 
 
-BUTTON BORDER COLOR ANIMATION
+1. BUTTON BORDER COLOR ANIMATION
 
 You're essentially making a cone of color that starts aimed at one corner
 and using animation to rotate it 360deg.
 
-@property is needed to make it work as explained in this post from learnwithjason.dev
+@property is needed to make it work as explained in this post from learnwithjason.dev.
 https://www.learnwithjason.dev/blog/animated-css-gradient-border/#animate-the-gradient-border 
 
 ***************************************************************************************************/
 
 .button-border-animation-container {
   background-color: var(--dark-bg);
+  color: var(--light-gray);
 }
 
 @property --border-angle {
@@ -96,3 +101,98 @@ https://www.learnwithjason.dev/blog/animated-css-gradient-border/#animate-the-gr
     --border-angle: 240deg;
   }
 }
+
+/************************************************************************************************
+
+2. BUTTON COLOR FILL FROM CENTER ON HOVER
+
+You're basically using radial-gradient to gradually move the desired color out from the center
+towards the border in smooth animation.
+
+************************************************************************************************/
+
+.fill-from-center-on-hover:hover {
+  animation: fill-color-from-center 250ms linear 1 forwards;
+}
+
+@keyframes fill-color-from-center {
+  0% {
+    background: radial-gradient(var(--gold) 0%, white 0%);
+  }
+  15% {
+    background: radial-gradient(var(--gold) 15%, white 15%);
+  }
+  30% {
+    background: radial-gradient(var(--gold) 30%, white 30%);
+  }
+  45% {
+    background: radial-gradient(var(--gold) 45%, white 45%);
+  }
+  60% {
+    background: radial-gradient(var(--gold) 60%, white 60%);
+  }
+  75% {
+    background: radial-gradient(var(--gold) 75%, white 75%);
+  }
+  90% {
+    background: radial-gradient(var(--gold) 90%, white 90%);
+  }
+  100% {
+    background: radial-gradient(var(--gold), var(--gold));
+  }
+}
+
+/*************************************************************************************************
+
+3. BUTTON COLOR FILL FROM SIDE ON HOVER
+
+First option is to set a background size that's twice a wide as the button and then transitioning
+its position on hover.
+
+Second option which is commented out uses the same tactic as 'fill-color-from-center' except 
+using a linear-gradient in place of a radial-gradient.
+
+*************************************************************************************************/
+
+.fill-from-side-on-hover {
+  display: block;
+  background: linear-gradient(to right, var(--gold) 50%, white 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 300ms ease-in;
+}
+
+.fill-from-side-on-hover:hover {
+  background-position: left bottom;
+}
+
+/* .fill-from-side-on-hover:hover {
+  animation: fill-color-from-side 250ms linear 1 forwards;
+}
+
+@keyframes fill-color-from-side {
+  0% {
+    background: linear-gradient(to right, var(--gold) 0%, white 0%);
+  }
+  15% {
+    background: linear-gradient(to right, var(--gold) 15%, white 15%);
+  }
+  30% {
+    background: linear-gradient(to right, var(--gold) 30%, white 30%);
+  }
+  45% {
+    background: linear-gradient(to right, var(--gold) 45%, white 45%);
+  }
+  60% {
+    background: linear-gradient(to right, var(--gold) 60%, white 60%);
+  }
+  75% {
+    background: linear-gradient(to right, var(--gold) 75%, white 75%);
+  }
+  90% {
+    background: linear-gradient(to right, var(--gold) 90%, white 90%);
+  }
+  100% {
+    background: linear-gradient(to right, var(--gold), var(--gold));
+  }
+} */
