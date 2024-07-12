@@ -1,0 +1,98 @@
+/* basic set up and default styles */
+:root {
+  --dark-bg: rgba(16, 16, 34, 1);
+  --light-gray: rgb(131, 131, 131);
+  --white: rgba(241, 241, 241, 1);
+  --gold: #ffd700;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+header a {
+  font-size: 2rem;
+}
+
+button {
+  border: 3px solid black;
+  background-color: transparent;
+  color: black;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  min-height: 300px;
+}
+
+/************************************************************************************************** 
+
+BUTTON BORDER COLOR ANIMATION
+
+You're essentially making a cone of color that starts aimed at one corner
+and using animation to rotate it 360deg.
+
+@property is needed to make it work as explained in this post from learnwithjason.dev
+https://www.learnwithjason.dev/blog/animated-css-gradient-border/#animate-the-gradient-border 
+
+***************************************************************************************************/
+
+.button-border-animation-container {
+  background-color: var(--dark-bg);
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: -90deg;
+  inherits: false;
+}
+
+.button-border-animation {
+  color: var(--light-gray);
+  border-color: var(--light-gray);
+}
+
+.button-border-animation:focus,
+.button-border-animation:hover {
+  border-image: conic-gradient(
+      from var(--border-angle),
+      var(--light-gray),
+      var(--gold) 35deg 60deg,
+      var(--light-gray) 90deg
+    )
+    30;
+  color: var(--gold);
+  animation: rotate-border 2s linear infinite forwards;
+}
+
+@keyframes rotate-border {
+  100% {
+    --border-angle: 240deg;
+  }
+}
